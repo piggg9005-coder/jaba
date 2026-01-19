@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ร้านชานมไข่มุก</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink-dark:#ff4f9a;
+  --pink-light:#ffd1e6;
+  --pink-bg:#fff0f7;
+}
+body{
+  font-family:'Prompt',sans-serif;
+  margin:0;
+  background:
+    radial-gradient(circle at 20% 20%, var(--pink-light) 0%, transparent 30%),
+    radial-gradient(circle at 80% 30%, #ffe6f1 0%, transparent 35%),
+    radial-gradient(circle at 50% 80%, #ffd9ea 0%, transparent 40%),
+    var(--pink-bg);
+}
+header{
+  background:linear-gradient(135deg,var(--pink-dark),#ff85b8);
+  color:white;
+  text-align:center;
+  padding:30px 15px;
+}
+header h1{
+  font-size:56px;
+  letter-spacing:2px;
+  text-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+nav{
+  display:flex;
+  background:var(--pink-light);
+}
+nav button{
+  flex:1;
+  padding:12px;
+  border:none;
+  background:var(--pink-dark);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+nav button:hover{
+  background:#ff85b8;
+  transform:scale(1.05);
+}
+.section{
+  display:none;
+  padding:20px;
+  animation:fade .4s ease;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.box{
+  width:900px;
+  max-width:95%;
+  margin:auto;
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(255,79,154,.25);
+}
+input,textarea,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:12px;
+  border:1px solid var(--pink-light);
+}
+button{
+  background:var(--pink-dark);
+  color:white;
+  border:none;
+}
+button:hover{
+  background:#ff85b8;
+  box-shadow:0 6px 15px rgba(255,79,154,.4);
+}
+.home-flex{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+.home-flex img{
+  width:50%;
+  border-radius:18px;
+}
+.home-text-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0;
+}
+.home-text-row p{
+  background:var(--pink-light);
+  padding:6px 14px;
+  border-radius:20px;
+  color:var(--pink-dark);
+}
+.home-gallery{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+.home-gallery img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.home-gallery img:hover{transform:scale(1.06)}
+.menu-banner{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:18px;
+}
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+.menu-card{
+  background:var(--pink-bg);
+  padding:10px;
+  border-radius:16px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 6px 15px rgba(255,79,154,.25);
+}
+.menu-card:hover{transform:scale(1.04)}
+.menu-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:12px;
+}
+.cart,.review-box{
+  background:var(--pink-bg);
+  padding:15px;
+  margin-top:15px;
+  border-radius:16px;
+  box-shadow:0 6px 15px rgba(255,79,154,.2);
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+}
+.cart-item button{
+  width:auto;
+}
+.stars span{
+  font-size:26px;
+  cursor:pointer;
+  color:var(--pink-light);
+}
+.stars span.active{color:var(--pink-dark)}
+#imgModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(255,79,154,.8);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+#imgModal img{
+  max-width:90%;
+  border-radius:18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍵 ร้านชานมไข่มุก</h1>
+  <p id="welcome"></p>
+</header>
+
+<nav>
+  <button onclick="showSection('home')">หน้าแรก</button>
+  <button onclick="showSection('register')">สมัครสมาชิก</button>
+  <button onclick="showSection('login')">เข้าสู่ระบบ</button>
+  <button onclick="showSection('menu')">เมนู (<span id="cartCount">0</span>)</button>
+</nav>
+
+<div id="home" class="section" style="display:block">
+  <div class="box">
+    <div class="home-flex">
+      <img src="images/กินชานมไข่มุก.jpeg">
+      <div>
+        <h2>ยินดีต้อนรับร้านชานมไข่มุก ⛩</h2>
+        <div class="home-text-row">
+          <p>อร่อย</p><p>ลด 10%</p><p>ส่งถึงบ้าน</p><p>รีวิวจริง</p>
+        </div>
+        <button onclick="showSection('register')">สมัครสมาชิก</button>
+        <button onclick="showSection('login')">เข้าสู่ระบบ</button>
+      </div>
+    </div>
+
+    <h3 style="margin-top:25px;">✨ เมนู & บรรยากาศ</h3>
+    <div class="home-gallery">
+      <img src="images/TT.jpg" onclick="viewImage(this.src)">
+      <img src="images/55.jpg" onclick="viewImage(this.src)">
+      <img src="images/Goo.jpg" onclick="viewImage(this.src)">
+      <img src="images/th.jpg" onclick="viewImage(this.src)">
+    </div>
+  </div>
+</div>
+
+<div id="register" class="section">
+  <div class="box">
+    <h2>สมัครสมาชิก (18–60 ปี)</h2>
+    <input type="date" id="birthdate">
+    <input type="text" id="regUser" placeholder="Username">
+    <input type="password" id="regPass" placeholder="Password">
+    <button onclick="register()">สมัครสมาชิก</button>
+    <p id="regMsg"></p>
+  </div>
+</div>
+
+<div id="login" class="section">
+  <div class="box">
+    <h2>เข้าสู่ระบบ</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">เข้าสู่ระบบ</button>
+    <p id="loginMsg"></p>
+  </div>
+</div>
+
+<div id="menu" class="section">
+  <div class="box">
+    <img src="images/778.jpg" class="menu-banner">
+    <h2>เมนูชานม</h2>
+
+    <div class="menu-grid">
+      <div class="menu-card" onclick="addToCart('ชานมไข่มุก',40)"><img src="images/TT.jpg"><p>ชานมไข่มุก 40 บาท</p></div>
+      <div class="menu-card" onclick="addToCart('ชาเขียว',35)"><img src="images/55.jpg"><p>ชาเขียว 35 บาท</p></div>
+      <div class="menu-card" onclick="addToCart('ชาไทย',35)"><img src="images/Goo.jpg"><p>ชาไทย 35 บาท</p></div>
+      <div class="menu-card" onclick="addToCart('โกโก้',45)"><img src="images/TT.jpg"><p>โกโก้ 45 บาท</p></div>
+    </div>
+
+    <h3>📍 ที่อยู่จัดส่ง</h3>
+    <textarea id="address"></textarea>
+
+    <div class="cart">
+      <h3>🛒 ตะกร้าสินค้า</h3>
+      <div id="cartList">ยังไม่มีสินค้า</div>
+      <p>โปรโมชั่น: ลด 10%🌊</p>
+      <p><b>รวมสุทธิ: <span id="total">0</span> บาท</b></p>
+
+      <h3>💳 วิธีชำระเงิน</h3>
+      <label><input type="radio" name="pay" onclick="showPay('qr')"> QR Code</label><br>
+      <label><input type="radio" name="pay" onclick="showPay('bank')"> ธนาคาร</label><br>
+      <label><input type="radio" name="pay" onclick="showPay('wallet')"> Wallet</label>
+
+      <div id="payDetail"></div>
+      <button onclick="confirmOrder()">ยืนยันการสั่งซื้อ</button>
+
+      <!-- ปุ่มล้างตะกร้า -->
+      <button onclick="clearCart()" style="background:#ccc;color:#333;margin-top:8px;">
+        ❌ ยกเลิกตะกร้าสินค้าทั้งหมด
+      </button>
+    </div>
+
+    <div class="review-box">
+      <h3>⭐ รีวิวร้าน</h3>
+      <div class="stars">
+        <span onclick="setStar(1)">★</span>
+        <span onclick="setStar(2)">★</span>
+        <span onclick="setStar(3)">★</span>
+        <span onclick="setStar(4)">★</span>
+        <span onclick="setStar(5)">★</span>
+      </div>
+      <textarea id="reviewText"></textarea>
+      <button onclick="submitReview()">ส่งรีวิว</button>
+      <div id="reviewList"></div>
+    </div>
+  </div>
+</div>
+
+<div id="imgModal"><img id="modalImg"></div>
+
+<script>
+let cart=[],total=0,user="",pass="",rating=0,pay="";
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+function getAge(b){
+  let t=new Date(),d=new Date(b);
+  let a=t.getFullYear()-d.getFullYear();
+  if(t.getMonth()<d.getMonth()||(t.getMonth()==d.getMonth()&&t.getDate()<d.getDate()))a--;
+  return a;
+}
+function register(){
+  if(!birthdate.value||!regUser.value||!regPass.value){regMsg.innerText="กรอกข้อมูลให้ครบ";return;}
+  let age=getAge(birthdate.value);
+  if(age<18||age>60){regMsg.innerText="อายุไม่ผ่านเกณฑ์";return;}
+  user=regUser.value;pass=regPass.value;
+  welcome.innerText="👤 สวัสดี "+user;
+  showSection("menu");
+}
+function login(){
+  if(loginUser.value===user&&loginPass.value===pass){
+    welcome.innerText="👤 สวัสดี "+user;
+    showSection("menu");
+  }else loginMsg.innerText="ข้อมูลไม่ถูกต้อง";
+}
+function addToCart(n,p){cart.push({n,p});updateCart();}
+function removeItem(i){cart.splice(i,1);updateCart();}
+function updateCart(){
+  cartList.innerHTML="";total=0;
+  if(cart.length==0)cartList.innerText="ยังไม่มีสินค้า";
+  cart.forEach((i,idx)=>{
+    total+=i.p;
+    cartList.innerHTML+=`<div class="cart-item">${i.n} ${i.p} บาท <button onclick="removeItem(${idx})">ลบ</button></div>`;
+  });
+  total=Math.round(total*0.9);
+  document.getElementById("total").innerText=total;
+  cartCount.innerText=cart.length;
+}
+function clearCart(){
+  if(cart.length===0){alert("ยังไม่มีสินค้าในตะกร้า");return;}
+  if(confirm("ต้องการยกเลิกสินค้าทั้งหมดหรือไม่?")){
+    cart=[];updateCart();
+  }
+}
+function showPay(t){
+  pay=t;
+  if(t==="qr")payDetail.innerHTML="<img src='images/qr.png' width='150'>";
+  if(t==="bank")payDetail.innerHTML="🏦 กสิกรไทย 123-456-7890";
+  if(t==="wallet")payDetail.innerHTML="💼 Wallet 089-xxx-xxxx";
+}
+function confirmOrder(){
+  if(cart.length==0||address.value==""||pay==""){alert("กรอกข้อมูลให้ครบ");return;}
+  alert("สั่งซื้อสำเร็จ 🎉");
+  cart=[];updateCart();
+}
+function setStar(n){
+  rating=n;
+  document.querySelectorAll(".stars span").forEach((s,i)=>s.classList.toggle("active",i<n));
+}
+function submitReview(){
+  if(rating==0||reviewText.value==""){alert("ให้ดาวและเขียนรีวิว");return;}
+  reviewList.innerHTML+=`<p>⭐ ${rating} ดาว : ${reviewText.value}</p>`;
+  reviewText.value="";setStar(0);
+}
+function viewImage(src){
+  modalImg.src=src;
+  imgModal.style.display="flex";
+}
+imgModal.onclick=()=>imgModal.style.display="none";
+</script>
+
+</body>
+</html>
